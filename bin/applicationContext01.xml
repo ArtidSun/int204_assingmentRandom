@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- property file -->
+	<context:property-placeholder location="classpath:application.properties"/>
+
+	<!-- Inversion of Control - IoC : Scope: singleton (default) vs. prototype -->
+	<bean id="DiceServiceBean" class="random.model.DiceService" scope="prototype"/>
+
+	<!-- constructor injection (using constructor-arg); inject literal values (using value="...") -->
+	<bean id="CoinBeanConstruct" class="random.model.CoinService" scope="singleton">
+		<constructor-arg type="double" value="0.5"/>
+	</bean><!-- type="JAVA_DATA_TYPE" is optional -->
+
+	<!-- setter injection (using property); inject from a property file (using ${...}) -->
+	<bean id="CoinBeanSetter" class="random.model.CoinService" scope="singleton">
+		<property name="chance"   value="0.1"/>		
+	</bean>
+	
+ 	<bean id="propertyCoinBean" class="random.model.CoinService" scope="singleton">
+		<property name="chance"   value="${coin.headChance}"/>	
+	</bean> 
+	
+</beans>
